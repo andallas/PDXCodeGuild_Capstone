@@ -1,17 +1,23 @@
 # Game Studio Website
 
 # Project Overview
+
 ## Major Features
+
 ### Studio News
-    Find out about upcoming games, current projects, and anything else studio related.
+Find out about upcoming games, current projects, and anything else studio related.
+
 ### User System
-    Register a new account, securely log in, and view limited access portions of the site.
+Register a new account, securely log in, and view limited access portions of the site.
+
 ### Customizable Profile
-    Customize your user profile with info about yourself, and high scores and achievements in game.
+Customize your user profile with info about yourself, and high scores and achievements in game.
+
 ### The Game
-    Play the game, have fun!
+Play the game, have fun!
+
 ### Leaderboard
-    View the users who have scored best in the game, try to earn a spot!
+View the users who have scored best in the game, try to earn a spot!
 
 ## Problem Solved
 - The studio can share information with fans
@@ -25,18 +31,21 @@
 ### Studio News
 - Create news posts similar to a blog
 - Comment and vote-up news posts
+
 ### User System
 - Register a new account
 - Log in and out of account
 - Access to pages requiring authentication
+
 ### Customizable Profile
 - Personalize profile with bio and other info
 - Display high scores and achievements
+
 ### The Game
+
 ### Leaderboard
 - View all-time high scores as well as recent high scores
 - Score high enough in the game and achieve a spot on the leaderboard
-
 
 ## User Stories
 - As the studio, I want to add news posts and publish them at a specified time.
@@ -56,6 +65,7 @@
 # Data Model
 
 # Schedule
+
 ## Project Lifecyle
 Project proposal
 *(3/28/2022)*
@@ -82,7 +92,11 @@ Project Deployment
 *(4/14/2022)*
 
 ## Milestones
+
 ### First milestone: User system and studio news
+
 ### Second milestone: Customizeable user profile
+
 ### Third milestone: The game
+
 ### Fourth milestone: Leaderboard and game-site interactions
