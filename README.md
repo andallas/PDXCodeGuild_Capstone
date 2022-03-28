@@ -4,28 +4,26 @@
 
 ### Major Features
 
-**Studio News**
-    Find out about upcoming games, current projects, and anything else studio related.
+**Studio News** - Find out about upcoming games, current projects, and anything else studio related.
 
-**User System**
-    Register a new account, securely log in, and view limited access portions of the site.
+**User System** - Register a new account, securely log in, and view limited access portions of the site.
 
-**Customizable Profile**
-    Customize your user profile with info about yourself, and high scores and achievements in game.
+**Customizable Profile** - Customize your user profile with info about yourself, and high scores and achievements in game.
 
-**The Game**
-    Play the game, have fun!
+**The Game** - Play the game, have fun!
 
-**Leaderboard**
-    View the users who have scored best in the game, try to earn a spot!
+**Leaderboard** - View the users who have scored best in the game, try to earn a spot!
 
-### Problem Solved
+### Problems Solved
 - The studio can share information with fans
 - Users can interact with the studio and other fans
 - Users can play game(s) for entertainment
 
 ### Libraries and Frameworks
-- TBD
+- Django
+- DjangoRestFramework
+- Vue
+- Materialize
 
 ## Features
 **Studio News**
