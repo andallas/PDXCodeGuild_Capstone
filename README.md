@@ -4,19 +4,19 @@
 
 ### Major Features
 
-Studio News
+**Studio News**
     Find out about upcoming games, current projects, and anything else studio related.
 
-User System
+**User System**
     Register a new account, securely log in, and view limited access portions of the site.
 
-Customizable Profile
+**Customizable Profile**
     Customize your user profile with info about yourself, and high scores and achievements in game.
 
-The Game
+**The Game**
     Play the game, have fun!
 
-Leaderboard
+**Leaderboard**
     View the users who have scored best in the game, try to earn a spot!
 
 ### Problem Solved
@@ -28,22 +28,22 @@ Leaderboard
 - TBD
 
 ## Features
-Studio News
+**Studio News**
 - Create news posts similar to a blog
 - Comment and vote-up news posts
 
-User System
+**User System**
 - Register a new account
 - Log in and out of account
 - Access to pages requiring authentication
 
-Customizable Profile
+**Customizable Profile**
 - Personalize profile with bio and other info
 - Display high scores and achievements
 
-The Game
+**The Game**
 
-Leaderboard
+**Leaderboard**
 - View all-time high scores as well as recent high scores
 - Score high enough in the game and achieve a spot on the leaderboard
 
@@ -93,7 +93,10 @@ Project Deployment
 
 ### Milestones
 
-First milestone: User system and studio news
-Second milestone: Customizeable user profile
-Third milestone: The game
-Fourth milestone: Leaderboard and game-site interactions
+**First milestone:** User system and studio news
+
+**Second milestone:** Customizeable user profile
+
+**Third milestone:** The game
+
+**Fourth milestone:** Leaderboard and game-site interactions
