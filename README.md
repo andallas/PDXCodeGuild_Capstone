@@ -4,13 +4,13 @@
 
 ### Major Features
 
-**Studio News** - Find out about upcoming games, current projects, and anything else studio related.
+**Studio News** - Find out about upcoming games, current projects, and anything else studio related. A place for the studio to publish news posts. Users can interact with and comment on posts.
 
 **User System** - Register a new account, securely log in, and view limited access portions of the site.
 
-**Customizable Profile** - Customize your user profile with info about yourself, and high scores and achievements in game.
+**Customizable Profile** - Customize your user profile with info about yourself, and high scores and achievements earned in game.
 
-**The Game** - Play the game, have fun!
+**The Game** - Play the game, have fun! A top-down tank/maze game.
 
 **Leaderboard** - View the users who have scored best in the game, try to earn a spot!
 
@@ -90,18 +90,17 @@
     created_at
     body
 
-**GameScores**
+**GameScore**
 
     created_at
     score
     user
 
-**GameAchievements**
+**GameAchievement**
 
     created_at
     name
     description
-    user
 
 ## Schedule
 
