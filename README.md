@@ -1,53 +1,54 @@
 # Game Studio Website
 
-# Project Overview
+## Project Overview
 
-## Major Features
+### Major Features
 
-### Studio News
-Find out about upcoming games, current projects, and anything else studio related.
+**Studio News** - Find out about upcoming games, current projects, and anything else studio related.
 
-### User System
-Register a new account, securely log in, and view limited access portions of the site.
+**User System** - Register a new account, securely log in, and view limited access portions of the site.
 
-### Customizable Profile
-Customize your user profile with info about yourself, and high scores and achievements in game.
+**Customizable Profile** - Customize your user profile with info about yourself, and high scores and achievements in game.
 
-### The Game
-Play the game, have fun!
+**The Game** - Play the game, have fun!
 
-### Leaderboard
-View the users who have scored best in the game, try to earn a spot!
+**Leaderboard** - View the users who have scored best in the game, try to earn a spot!
 
-## Problem Solved
+### Problems Solved
 - The studio can share information with fans
 - Users can interact with the studio and other fans
 - Users can play game(s) for entertainment
 
-## Libraries and Frameworks
-- TBD
+### Libraries and Frameworks
+- Django
+- DjangoRestFramework
+- Vue
+- Materialize
 
-# Features
-### Studio News
+## Features
+**Studio News**
 - Create news posts similar to a blog
 - Comment and vote-up news posts
 
-### User System
+**User System**
 - Register a new account
 - Log in and out of account
 - Access to pages requiring authentication
 
-### Customizable Profile
+**Customizable Profile**
 - Personalize profile with bio and other info
 - Display high scores and achievements
 
-### The Game
+**The Game**
+- Control a tank and move through the level
+- Defeat enemies and find power-ups
+- Reach the exit to complete the level
 
-### Leaderboard
+**Leaderboard**
 - View all-time high scores as well as recent high scores
 - Score high enough in the game and achieve a spot on the leaderboard
 
-## User Stories
+### User Stories
 - As the studio, I want to add news posts and publish them at a specified time.
 - As a user, I want to read news posts from the studio.
 - As a user, I want to comment on news posts.
@@ -62,11 +63,49 @@ View the users who have scored best in the game, try to earn a spot!
 - As a user, I want to sort the leaderboard by recent high scores.
 - As a user, I want to earn a spot on the leaderboard.
 
-# Data Model
+## Data Model
 
-# Schedule
+**User**
 
-## Project Lifecyle
+    created_at
+    is_admin
+    first_name
+    last_name
+    email
+    game_scores
+    game_achievements
+    comments
+
+**Post**
+
+    created_at
+    published_at
+    title
+    body
+    votes
+    comments
+
+**Comment**
+
+    created_at
+    body
+
+**GameScores**
+
+    created_at
+    score
+    user
+
+**GameAchievements**
+
+    created_at
+    name
+    description
+    user
+
+## Schedule
+
+### Project Lifecyle
 Project proposal
 *(3/28/2022)*
 
@@ -91,12 +130,12 @@ Sprint 4: Leaderboard and game-site interactions
 Project Deployment
 *(4/14/2022)*
 
-## Milestones
+### Milestones
 
-### First milestone: User system and studio news
+**First milestone:** User system and studio news
 
-### Second milestone: Customizeable user profile
+**Second milestone:** Customizeable user profile
 
-### Third milestone: The game
+**Third milestone:** The game
 
-### Fourth milestone: Leaderboard and game-site interactions
+**Fourth milestone:** Leaderboard and game-site interactions
