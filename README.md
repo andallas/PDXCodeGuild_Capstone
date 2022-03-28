@@ -40,6 +40,9 @@
 - Display high scores and achievements
 
 **The Game**
+- Control a tank and move through the level
+- Defeat enemies and find power-ups
+- Reach the exit to complete the level
 
 **Leaderboard**
 - View all-time high scores as well as recent high scores
@@ -61,6 +64,36 @@
 - As a user, I want to earn a spot on the leaderboard.
 
 ## Data Model
+
+**User**
+
+    created_at
+    is_admin
+    first_name
+    last_name
+    email
+    game_scores
+    comments
+
+**Post**
+
+    created_at
+    published_at
+    title
+    body
+    votes
+    comments
+
+**Comment**
+
+    created_at
+    body
+
+**GameScores**
+
+    created_at
+    score
+    user
 
 ## Schedule
 
