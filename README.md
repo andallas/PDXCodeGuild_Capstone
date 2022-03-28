@@ -73,6 +73,7 @@
     last_name
     email
     game_scores
+    game_achievements
     comments
 
 **Post**
@@ -93,6 +94,13 @@
 
     created_at
     score
+    user
+
+**GameAchievements**
+
+    created_at
+    name
+    description
     user
 
 ## Schedule
