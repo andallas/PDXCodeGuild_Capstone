@@ -115,6 +115,43 @@
     name
     description
 
+## API Endpoints
+
+**Post**
+
+    New
+    Get
+    Get List
+    Edit
+    Vote
+    Publish
+    Delete
+
+**Comment**
+
+    New
+    Get
+    Get List
+    Edit
+
+**UserInfo**
+
+    Get
+    Get List
+    Edit
+
+**GameScore**
+
+    New
+    Get
+    Get List
+
+**GameAchievement**
+
+    New
+    Get
+    Get List
+
 ## Schedule
 
 ### Project Lifecyle
