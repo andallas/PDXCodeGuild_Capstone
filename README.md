@@ -50,18 +50,28 @@
 
 ### User Stories
 - As the studio, I want to add news posts and publish them at a specified time.
+- As the studio, I want to edit news posts.
+- As the studio, I want to delete news posts.
+- As a user, I want to read other users comments.
+- As a user, I want to be able to edit my past comments.
 - As a user, I want to read news posts from the studio.
 - As a user, I want to comment on news posts.
 - As a user, I want to vote-up news posts.
 - As a user, I want to register a new account.
 - As a user, I want to securely log into my account.
 - As a user, I want access to pages when logged into my account.
-- As a user, I want customize my profile with information about myself.
+
+- As a user, I want to customize my profile with information about myself.
 - As a user, I want to display high scores and achievements on my profile.
+- As a user, I want to read other user's profiles.
+
 - As a user, I want to play the game.
+- As a user, I want to earn a high score in the game.
+- As a user, I want to unlock an achievement in the game.
+
 - As a user, I want to view the leaderboard for the game.
 - As a user, I want to sort the leaderboard by recent high scores.
-- As a user, I want to earn a spot on the leaderboard.
+
 
 ## Data Model
 
@@ -124,7 +134,6 @@
     Get List
     Edit
     Vote
-    Publish
     Delete
 
 **Comment**
@@ -137,7 +146,6 @@
 **UserInfo**
 
     Get
-    Get List
     Edit
 
 **GameScore**
