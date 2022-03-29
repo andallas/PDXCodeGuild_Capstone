@@ -72,9 +72,6 @@
     first_name
     last_name
     email
-    game_scores
-    game_achievements
-    comments
 
 **Post**
 
@@ -82,21 +79,37 @@
     published_at
     title
     body
+    author_id
     votes
-    comments
 
 **Comment**
 
     created_at
     body
+    post_id
+    author_id
 
 **GameScore**
 
     created_at
     score
-    user
+    game_id
+    user_id
 
 **GameAchievement**
+
+    created_at
+    name
+    description
+    game_id
+    user_id
+
+**UserInfo**
+
+    bio_text
+    user_id
+
+**GameInfo**
 
     created_at
     name
