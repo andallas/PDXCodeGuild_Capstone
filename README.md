@@ -49,25 +49,24 @@
 - Score high enough in the game and achieve a spot on the leaderboard
 
 ### User Stories
-- As the studio, I want to add news posts and publish them at a specified time.
-- As the studio, I want to edit news posts.
-- As the studio, I want to delete news posts.
-- As a user, I want to read other users comments.
-- As a user, I want to be able to edit my past comments.
-- As a user, I want to read news posts from the studio.
-- As a user, I want to comment on news posts.
-- As a user, I want to vote-up news posts.
-- As a user, I want to register a new account.
-- As a user, I want to securely log into my account.
-- As a user, I want access to pages when logged into my account.
+- As an admin user, I want to add news posts and publish them at a specified time.
+- As an admin user, I want to edit news posts.
+- As an admin user, I want to delete news posts.
+- As any user, I want to read news posts from the studio.
+- As any user, I want to register a new account.
+- As any user, I want to securely log into my account.
+- As a registered user, I want to comment on news posts.
+- As a registered user, I want to read other users comments.
+- As a registered user, I want to be able to edit my past comments.
+- As a registered user, I want to vote-up news posts.
 
-- As a user, I want to customize my profile with information about myself.
-- As a user, I want to display high scores and achievements on my profile.
-- As a user, I want to read other user's profiles.
+- As a registered user, I want to customize my profile with information about myself.
+- As a registered user, I want to display high scores and achievements on my profile.
+- As a registered user, I want to read other user's profiles.
 
 - As a user, I want to play the game.
-- As a user, I want to earn a high score in the game.
-- As a user, I want to unlock an achievement in the game.
+- As a registered user, I want to earn a high score in the game.
+- As a registered user, I want to unlock an achievement in the game.
 
 - As a user, I want to view the leaderboard for the game.
 - As a user, I want to sort the leaderboard by recent high scores.
@@ -127,38 +126,42 @@
 
 ## API Endpoints
 
+_(+ Endpoint is open)_
+
+_(- Endpoint requires authorization)_
+
 **Post**
 
-    New
-    Get
-    Get List
-    Edit
-    Vote
-    Delete
+    - New
+    + Get
+    + Get List
+    - Edit
+    - Vote
+    - Delete
 
 **Comment**
 
-    New
-    Get
-    Get List
-    Edit
+    - New
+    - Get
+    - Get List
+    - Edit
 
 **UserInfo**
 
-    Get
-    Edit
+    - Get
+    - Edit
 
 **GameScore**
 
-    New
-    Get
-    Get List
+    - New
+    + Get
+    + Get List
 
 **GameAchievement**
 
-    New
-    Get
-    Get List
+    - New
+    - Get
+    - Get List
 
 ## Schedule
 
