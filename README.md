@@ -20,8 +20,9 @@
 - Users can play game(s) for entertainment
 
 ### Libraries and Frameworks
-- Django
-- DjangoRestFramework
+- Django (4.0.3)
+- Django-environ (0.8.1)
+- DjangoRestFramework (3.13.1)
 - Vue
 - Materialize
 
