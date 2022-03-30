@@ -173,7 +173,7 @@ _(- Endpoint requires authorization)_
 
 ~Project boilerplate and library/framework setup~ *(3/30/2022)*
 
-Sprint 1: User system and studio news *(4/05/2022)*
+**Sprint 1: User system and studio news** *(4/05/2022)*
 
 Sprint 2: Customizeable user profile *(4/08/2022)*
 
