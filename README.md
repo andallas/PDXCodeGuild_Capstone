@@ -167,28 +167,36 @@ _(- Endpoint requires authorization)_
 ## Schedule
 
 ### Project Lifecyle
-Project proposal
+~Project proposal~
+
 *(3/28/2022)*
 
-Project architecture and systems design
+~Project architecture and systems design~
+
 *(3/29/2022)*
 
-Project boilerplate and library/framework setup
-*(3/31/2022)*
+~Project boilerplate and library/framework setup~
+
+*(3/30/2022)*
 
 Sprint 1: User system and studio news
+
 *(4/05/2022)*
 
 Sprint 2: Customizeable user profile
+
 *(4/08/2022)*
 
 Sprint 3: The game
+
 *(4/11/2022)*
 
 Sprint 4: Leaderboard and game-site interactions
+
 *(4/13/2022)*
 
 Project Deployment
+
 *(4/14/2022)*
 
 ### Milestones
