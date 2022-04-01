@@ -23,8 +23,8 @@
 - Django (4.0.3)
 - Django-environ (0.8.1)
 - DjangoRestFramework (3.13.1)
-- Vue
-- Materialize
+- Vue (3)
+- Materialize (1.0.0)
 
 ## Features
 **Studio News**
@@ -89,35 +89,35 @@
     published_at
     title
     body
-    author_id
+    author
     votes
 
 **Comment**
 
     created_at
     body
-    post_id
-    author_id
+    post
+    author
 
 **GameScore**
 
     created_at
     score
-    game_id
-    user_id
+    game
+    user
 
 **GameAchievement**
 
     created_at
     name
     description
-    game_id
-    user_id
+    game
+    user
 
 **UserInfo**
 
     bio_text
-    user_id
+    user
 
 **GameInfo**
 
