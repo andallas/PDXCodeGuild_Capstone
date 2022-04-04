@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
+from django.contrib.auth.models import Group
 from .models import CustomUser, UserInfo
 
 
@@ -11,11 +11,12 @@ class CustomUserCreationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit)
+
         if commit:
             userInfo = UserInfo()
             userInfo.user = user
-
             userInfo.save()
+
         return user
 
 

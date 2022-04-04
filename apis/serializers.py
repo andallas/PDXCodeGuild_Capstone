@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from accounts import models
-from posts import models
-from games import models
+from accounts import models as accountModels
+from posts import models as postModels
+from games import models as gameModels
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
             'bio_text',
             'user',
         )
-        model = models.UserInfo
+        model = accountModels.UserInfo
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,7 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
             'author',
             'votes',
         )
-        model = models.Post
+        model = postModels.Post
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,7 +37,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'body',
             'author',
         )
-        model = models.Comment
+        model = postModels.Comment
 
 class GameInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,7 +47,7 @@ class GameInfoSerializer(serializers.ModelSerializer):
             'name',
             'description',
         )
-        model = models.GameInfo
+        model = gameModels.GameInfo
 
 class GameScoreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -58,7 +58,7 @@ class GameScoreSerializer(serializers.ModelSerializer):
             'game',
             'user',
         )
-        model = models.GameScore
+        model = gameModels.GameScore
 
 class GameAchievementSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,4 +70,4 @@ class GameAchievementSerializer(serializers.ModelSerializer):
             'game',
             'user',
         )
-        model = models.GameAchievement
+        model = gameModels.GameAchievement
