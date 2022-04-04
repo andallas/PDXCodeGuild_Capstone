@@ -6,7 +6,34 @@
     <h2>Sign Up</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
+        <div class="input-field">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {% if form.username.help_text %}
+            <span class="helper-text">{{ form.username.help_text|safe }}</span>
+            {% endif %}
+        </div>
+        <div class="input-field">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {% if form.email.help_text %}
+            <span class="helper-text">{{ form.email.help_text|safe }}</span>
+            {% endif %}
+        </div>
+        <div class="input-field">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {% if form.password1.help_text %}
+            <span class="helper-text">{{ form.password1.help_text|safe }}</span>
+            {% endif %}
+        </div>
+        <div class="input-field">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {% if form.password2.help_text %}
+            <span class="helper-text">{{ form.password2.help_text|safe }}</span>
+            {% endif %}
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Sign Up</button>
     </form>
 {% endblock %}
