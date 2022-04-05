@@ -14,6 +14,14 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    def short_body(self):
+        short_body_length = 128
+        short_body = self.body[:short_body_length]
+        if (len(short_body) < short_body_length):
+            return f'{short_body}'
+        else:
+            return f'{short_body}...'
+
 class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

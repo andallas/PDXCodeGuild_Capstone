@@ -12,11 +12,17 @@
                 {% else %}
                     <p>Posted by <a href="#!">{{ post.author.username }}</a> on <em>{{ post.updated_at }} (updated)</em></p>
                 {% endif %}
-
-                    <p>{{ post.body|linebreaksbr }}</p>
                 </div>
+                
+                <div class="card-content">
+                    <p>{{ post.short_body|linebreaksbr }}</p>
+                </div>
+                
                 <div class="card-action">
                     <span><i class="material-icons">thumb_up_off_alt</i>{{ post.votes }}</span>
+                {% if user.is_authenticated %}
+                    <button></button>
+                {% endif %}
                 </div>
             </div>
         </div>
