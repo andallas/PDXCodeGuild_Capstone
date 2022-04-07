@@ -35,8 +35,18 @@
         {% endblock %}
     </div>
 
-    <script src="https://unpkg.com/vue@3"></script>
     {% load static %}
     <script src="{% static 'js/materialize.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+            }
+        }
+    </script>
+    
+    {% block vueApp %}
+    {% endblock %}
 </body>
 </html>
