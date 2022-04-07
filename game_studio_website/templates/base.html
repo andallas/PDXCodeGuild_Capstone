@@ -45,6 +45,23 @@
             }
         }
     </script>
+    <script>
+        function FindIndexByID(itemList, itemID) {
+            let index = -1;
+            for (let i = 0; i < itemList.length; i++) {
+                if (itemList[i].id == itemID) {
+                    return i;
+                }
+            }
+
+            console.log(`No item with id: ${itemID} found in item list.`);
+            return index;
+        }
+
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    </script>
+    {% block vueComponents %}
+    {% endblock %}
     
     {% block vueApp %}
     {% endblock %}

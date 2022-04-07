@@ -1,0 +1,53 @@
+{% extends "vue_components.html" %}
+
+{% block vueApp %}
+<script type="module">
+    import { createApp } from 'vue'
+    
+    var post_detail_app = createApp({
+        data: function() {
+            return {
+                post: {
+                    id: "{{ post.id }}",
+                    updated_at: "{{ post.updated_at }}",
+                    published_at: "{{ post.published_at }}",
+                    title: "{{ post.title }}",
+                    body: "{{ post.body }}",
+                    author: "{{ post.author }}",
+                    votes: {{ post.votes }}
+                },
+                comment: {
+                    body: ''
+                }
+            }
+        },
+        methods: {
+            vote: function() {
+                this.post.votes += 1;
+
+                axios({
+                    method: 'put',
+                    url: `/apis/v1/post/${this.post.id}/vote/`,
+                    headers: {'X-CSRFToken': csrftoken},
+                    mode: 'same-origin',
+                    data: {
+                        id: this.post.id,
+                        updated_at: this.post.updated_at,
+                        published_at: this.post.published_at,
+                        title: this.post.title,
+                        body: this.post.body,
+                        author: this.post.author,
+                        votes: this.post.votes
+                    }
+                }).then((response) => {
+                    console.log(response.data)
+                });
+            }
+        }
+    });
+    post_detail_app.config.compilerOptions.delimiters = ['[[', ']]'];
+    post_detail_app.component('post', post_component);
+    post_detail_app.component('comment-form', comment_form_component);
+    post_detail_app.mount('#post_detail_app');
+</script>
+{% endblock %}

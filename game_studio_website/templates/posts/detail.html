@@ -1,0 +1,13 @@
+{% extends "post_detail_app.html" %}
+
+{% block content %}
+    <div id="post_detail_app">
+        {% csrf_token %}
+
+        <post v-bind:post="post" v-on:vote="vote($event)"></post>
+            
+        {% if user.is_authenticated %}
+        <comment-form v-bind:comment="comment"></comment-form>
+        {% endif %}
+    </div>
+{% endblock %}

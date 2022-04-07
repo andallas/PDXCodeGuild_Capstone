@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block vueComponents %}
+<script>
+    // Components
+    let post_card_component = {
+        props: ['post'],
+        template:  `<div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <span class="card-title"><a :href=post.url>[[ post.title ]]</a></span>
+                                    <template v-if="(post.published_at > post.updated_at)">
+                                        <p>Posted by <a href="#!">[[ post.author.username ]]</a> on [[ post.published_at ]]</p>
+                                    </template>
+                                    <template v-else>
+                                        <p>Posted by <a href="#!">[[ post.author.username ]]</a> on <em>[[ post.updated_at ]] (updated)</em></p>
+                                    </template>
+                                </div>
+                                
+                                <div class="card-content">
+                                    <p>[[ post.short_body ]]</p>
+                                </div>
+                                
+                                <div class="card-action">
+                                    <button class="waves-effect waves-light btn-small grey lighten-2 black-text {% if not user.is_authenticated %}disabled{% endif %}" v-on:click="$emit(\'vote\', post.id)"><i class="tiny material-icons amber-text text-darken-3 left">hotel_class</i>[[ post.votes ]]</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+    };
+
+    let post_component = {
+        props: ['post'],
+        template:  `<div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <span class="card-title">[[ post.title ]]</span>
+                                    <template v-if="(post.published_at > post.updated_at)">
+                                        <p>Posted by <a href="#!">[[ post.author.username ]]</a> on [[ post.published_at ]]</p>
+                                    </template>
+                                    <template v-else>
+                                        <p>Posted by <a href="#!">[[ post.author.username ]]</a> on <em>[[ post.updated_at ]] (updated)</em></p>
+                                    </template>
+                                </div>
+                                
+                                <div class="card-content">
+                                    <p>[[ post.body ]]</p>
+                                </div>
+                                
+                                <div class="card-action">
+                                    <button class="waves-effect waves-light btn-small grey lighten-2 black-text {% if not user.is_authenticated %}disabled{% endif %}" v-on:click="$emit(\'vote\')"><i class="tiny material-icons amber-text text-darken-3 left">hotel_class</i>[[ post.votes ]]</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+    };
+
+    let comment_form_component = {
+        props: ['comment'],
+        template:  `<div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s10">
+                                    <textarea id="textarea1" class="materialize-textarea">[[ comment.body ]]</textarea>
+                                    <label for="textarea1">Enter comment...</label>
+                                </div>
+                                <div class="col s2">
+                                    <button class="waves-effect waves-light btn" type="submit">Comment<i class="material-icons right">send</i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>`
+    };
+
+</script>
+{% endblock %}
