@@ -4,6 +4,15 @@ from posts import models as postModels
 from games import models as gameModels
 
 
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = (
+            'id',
+            'username',
+            'email'
+        )
+        model = accountModels.CustomUser
+
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
@@ -14,6 +23,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
         model = accountModels.UserInfo
 
 class PostSerializer(serializers.ModelSerializer):
+    author_name = serializers.StringRelatedField(source="author.username")
     class Meta:
         fields = (
             'id',
@@ -23,11 +33,13 @@ class PostSerializer(serializers.ModelSerializer):
             'title',
             'body',
             'author',
+            'author_name',
             'votes',
         )
         model = postModels.Post
 
 class CommentSerializer(serializers.ModelSerializer):
+    author_name = serializers.StringRelatedField(source="author.username")
     class Meta:
         fields = (
             'id',
@@ -36,6 +48,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'post',
             'body',
             'author',
+            'author_name',
         )
         model = postModels.Comment
 
@@ -71,3 +84,4 @@ class GameAchievementSerializer(serializers.ModelSerializer):
             'user',
         )
         model = gameModels.GameAchievement
+        

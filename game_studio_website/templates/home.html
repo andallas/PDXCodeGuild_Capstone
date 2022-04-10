@@ -3,6 +3,6 @@
 {% block content %}
     <div id="posts_list_app">
         {% csrf_token %}
-        <post-card v-for="post in posts" v-bind:post="post" v-bind:key="post.id" v-on:vote="vote($event)"></post-card>
+        <post-card v-for="post in posts" v-bind:post_details="post" v-bind:key="post.id" v-on:vote="vote($event)"></post-card>
     </div>
 {% endblock %}

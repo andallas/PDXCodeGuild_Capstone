@@ -13,6 +13,9 @@ class Post(models.Model):
     
     def __str__(self):
         return f'{self.title}'
+    
+    class Meta:
+        ordering = ['-published_at']
 
 class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)

@@ -7,47 +7,101 @@
     var post_detail_app = createApp({
         data: function() {
             return {
-                post: {
-                    id: "{{ post.id }}",
-                    updated_at: "{{ post.updated_at }}",
-                    published_at: "{{ post.published_at }}",
-                    title: "{{ post.title }}",
-                    body: "{{ post.body }}",
-                    author: "{{ post.author }}",
-                    votes: {{ post.votes }}
-                },
-                comment: {
-                    body: ''
-                }
+                news_post: {},
+                new_comment: {},
+                comment_list: []
             }
         },
         methods: {
             vote: function() {
-                this.post.votes += 1;
-
                 axios({
                     method: 'put',
-                    url: `/apis/v1/post/${this.post.id}/vote/`,
+                    url: `/apis/v1/post/${this.news_post.id}/vote/`,
                     headers: {'X-CSRFToken': csrftoken},
                     mode: 'same-origin',
                     data: {
-                        id: this.post.id,
-                        updated_at: this.post.updated_at,
-                        published_at: this.post.published_at,
-                        title: this.post.title,
-                        body: this.post.body,
-                        author: this.post.author,
-                        votes: this.post.votes
+                        id: this.news_post.id,
                     }
                 }).then((response) => {
-                    console.log(response.data)
+                    this.news_post.votes = response.data.voteCount;
+                });
+            },
+            submit_comment: function() {
+                axios({
+                    method: 'post',
+                    url: '/apis/v1/comment/',
+                    headers: {'X-CSRFToken': csrftoken},
+                    mode: 'same-origin',
+                    data: {
+                        post: this.news_post.id,
+                        body: this.new_comment.body,
+                        author: {{user.id}},
+                    },
+                    format: 'json'
+                }).then((response) => {
+                    this.comment_list.push(response.data);
+                    this.new_comment.body = ''
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+            getPublishedComments: function() {
+                axios({
+                    method: 'get',
+                    url: '/apis/v1/comment',
+                    params: { post: {{post.id}} }
+                }).then((response) => {
+                    for (let comment_index in response.data) {
+                        let this_comment = response.data[comment_index];
+
+                        this.comment_list.push({
+                            id: this_comment.id,
+                            created_at: this_comment.created_at,
+                            body: this_comment.body,
+                            author_name: this_comment.author_name,
+                        });
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            getPost: function() {
+                axios({
+                    method: 'get',
+                    url: '/apis/v1/post/{{ post.id }}'
+                }).then((response) => {
+                        let post = response.data;
+                        this.news_post = {
+                            id: post.id,
+                            updated_at: post.updated_at,
+                            published_at: post.published_at,
+                            title: post.title,
+                            body: post.body,
+                            url: `/post/${post.id}`,
+                            author_name: post.author_name,
+                            votes: post.votes
+                        };
+                }).catch((error) => {
+                    console.log(error);
                 });
             }
+        },
+        computed: {
+            sorted_comments: function() {
+                return this.comment_list.sort(function(a, b) {
+                    return (new Date(b.created_at) - new Date(a.created_at));
+                });
+            }
+        },
+        created: function() {
+            this.getPost();
+            this.getPublishedComments();
         }
     });
     post_detail_app.config.compilerOptions.delimiters = ['[[', ']]'];
-    post_detail_app.component('post', post_component);
+    post_detail_app.component('news-post', news_post_component);
     post_detail_app.component('comment-form', comment_form_component);
+    post_detail_app.component('comment', comment_component);
     post_detail_app.mount('#post_detail_app');
 </script>
 {% endblock %}
