@@ -2,7 +2,6 @@
 
 {% block vueComponents %}
 <script>
-    // Components
     let post_card_component = {
         props: ['post_details'],
         template:  `<div class="row">
@@ -57,27 +56,61 @@
                     </div>`
     };
 
-    let comment_form_component = {
+    let new_comment_form_component = {
         props: ['comment_details'],
         template:  `<div class="row">
-                        <div class="row">
-                            <div class="input-field col s10">
-                                <textarea id="textarea1" class="materialize-textarea" v-model="comment_details.body"></textarea>
-                                <label for="textarea1">Enter comment...</label>
-                            </div>
-                            <div class="col s2">
-                                <button class="waves-effect waves-light btn" v-on:click="$emit(\'submit_comment\')">Comment<i class="material-icons right">send</i></button>
-                            </div>
+                        <div class="input-field col s10">
+                            <textarea id="textarea1" class="materialize-textarea" v-model="comment_details.body"></textarea>
+                            <label for="textarea1">Enter comment...</label>
+                        </div>
+                        <div class="col s2">
+                            <button class="waves-effect waves-light btn" v-on:click="$emit(\'submit_comment\')">Comment<i class="material-icons right">send</i></button>
                         </div>
                     </div>`
+    };
+
+    let edit_comment_form_component = {
+        props: ['comment_details'],
+        template:  `<div class="row">
+                        <div class="input-field col s10">
+                            <textarea ref="resizeable" id="textarea1" class="materialize-textarea" v-model="comment_details.body"></textarea>
+                            <label for="textarea1">Edit comment...</label>
+                        </div>
+                        <div class="col s2">
+                            <button class="waves-effect waves-light btn modal-close" v-on:click="$emit(\'submit_comment_edit\')">Edit<i class="material-icons right">send</i></button>
+                        </div>
+                    </div>`,
+        mounted: function() {
+            M.textareaAutoResize(this.$refs.resizeable);
+        }
     };
 
     let comment_component = {
         props: ['comment_details'],
         template:  `<li class="collection-item">
-                        <p>[[ comment_details.body ]]</p>
-                        <span>Posted by <a href="#!">[[ comment_details.author_name ]]</a> on [[ comment_details.created_at ]]</span>
-                    </li>`
+                        <div class="card">
+                            <div class="card-content">
+                                <p>[[ comment_details.body ]]</p>
+                                <template v-if="(comment_details.created_at >= comment_details.updated_at)">
+                                    <p>Posted by <a href="#!">[[ comment_details.author_name ]]</a> on [[ comment_details.created_at ]]</p>
+                                </template>
+                                <template v-else>
+                                    <p>Posted by <a href="#!">[[ comment_details.author_name ]]</a> on <em>[[ comment_details.updated_at ]] (updated)</em></p>
+                                </template>
+                            </div>
+                            <div class="card-action">
+                                <button class="waves-effect waves-light btn modal-trigger" v-bind:data-target="('modal' + comment_details.id)">Edit<i class="material-icons right">send</i></button>
+                            </div>
+                            <div ref="modal" v-bind:id="('modal' + comment_details.id)" class="modal">
+                                <div class="modal-content">
+                                    <edit-comment-form v-bind:comment_details="comment_details" v-on:submit_comment_edit="$emit(\'submit_comment_edit\', comment_details)"></edit-comment-form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>`,
+        mounted: function() {
+            M.Modal.init(this.$refs.modal);
+        }
     }
 
 </script>
