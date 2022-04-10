@@ -10,7 +10,7 @@
         <comment-form v-bind:comment_details="new_comment" v-on:submit_comment="submit_comment($event)"></comment-form>
 
         <ul class="collection">
-            <comment v-for="comment in sorted_comments" v-bind:comment_details="comment" v-bind:key="comment.id"></comment>
+            <comment v-for="comment in sorted_comments" v-bind:comment_details="comment" v-bind:key="comment.id" v-on:submit_comment_edit="submit_comment_edit($event)"></comment>
         </ul>
         {% endif %}
     </div>

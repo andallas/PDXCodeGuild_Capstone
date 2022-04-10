@@ -40,7 +40,22 @@
                     format: 'json'
                 }).then((response) => {
                     this.comment_list.push(response.data);
-                    this.new_comment.body = ''
+                    this.new_comment.body = '';
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+            submit_comment_edit: function(comment_details) {
+                console.log(comment_details.id);
+                axios({
+                    method: 'patch',
+                    url: `/apis/v1/comment/${comment_details.id}/`,
+                    headers: {'X-CSRFToken': csrftoken},
+                    mode: 'same-origin',
+                    data: {
+                        id: comment_details.id,
+                        body: comment_details.body,
+                    }
                 }).catch(error => {
                     console.log(error);
                 });
@@ -57,6 +72,7 @@
                         this.comment_list.push({
                             id: this_comment.id,
                             created_at: this_comment.created_at,
+                            updated_at: this_comment.updated_at,
                             body: this_comment.body,
                             author_name: this_comment.author_name,
                         });
@@ -100,7 +116,8 @@
     });
     post_detail_app.config.compilerOptions.delimiters = ['[[', ']]'];
     post_detail_app.component('news-post', news_post_component);
-    post_detail_app.component('comment-form', comment_form_component);
+    post_detail_app.component('comment-form', new_comment_form_component);
+    post_detail_app.component('edit-comment-form', edit_comment_form_component);
     post_detail_app.component('comment', comment_component);
     post_detail_app.mount('#post_detail_app');
 </script>
