@@ -20,8 +20,6 @@ class PostViewSet(viewsets.ModelViewSet):
             post.votes += 1
             post.save()
             responseObject = {'vote': 'Success', 'voteCount': f'{post.votes}'}
-        elif (request.method == 'GET'):
-            responseObject = {'vote': 'Failure', 'voteCount': f'{post.votes}'}
         else:
             responseObject = {'vote': 'Failure', 'errorMessage': f'Invalid request type: {request.method}'}
 
@@ -29,6 +27,14 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = postModels.Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        post_query_params = self.request.query_params.getlist("post")
+        if (len(post_query_params)):
+            post_id = post_query_params[0]
+            queryset = postModels.Comment.objects.filter(post=post_id)
+        else:
+            queryset = postModels.Comment.objects.all()
+        return queryset

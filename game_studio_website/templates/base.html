@@ -13,9 +13,9 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo center">Game Studio Logo</a>
+                <a href="/" class="brand-logo center">Game Studio Logo</a>
                 <ul class="left hide-on-med-and-down">
-                    <li class="active"><a href="#!">News</a></li>
+                    <li class="active"><a href="/">News</a></li>
                 </ul>
                 <ul class="right">
                 {% if user.is_authenticated %}
@@ -45,6 +45,23 @@
             }
         }
     </script>
+    <script>
+        function FindIndexByID(itemList, itemID) {
+            let index = -1;
+            for (let i = 0; i < itemList.length; i++) {
+                if (itemList[i].id == itemID) {
+                    return i;
+                }
+            }
+
+            console.log(`No item with id: ${itemID} found in item list.`);
+            return index;
+        }
+
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    </script>
+    {% block vueComponents %}
+    {% endblock %}
     
     {% block vueApp %}
     {% endblock %}
