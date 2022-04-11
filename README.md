@@ -167,21 +167,23 @@ _(- Endpoint requires authorization)_
 ## Schedule
 
 ### Project Lifecyle
-[x] Project proposal *(3/28/2022)*
+- [x] Project proposal *(3/28/2022)*
 
-[x] Project architecture and systems design *(3/29/2022)*
+- [x] Project architecture and systems design *(3/29/2022)*
 
-[x] Project boilerplate and library/framework setup *(3/30/2022)*
+- [x] Project boilerplate and library/framework setup *(3/30/2022)*
 
-[x] Sprint 1: User system and studio news *(4/10/2022)*
+- [x] Sprint 1: User system and studio news *(4/10/2022)*
 
-[ ] **Sprint 2: Customizeable user profile** *(4/13/2022)*
+- [ ] **Sprint 2: Customizeable user profile** *(4/13/2022)*
 
 ~Sprint 3: The game~ *(4/11/2022)*
+* postponed *
 
 ~Sprint 4: Leaderboard and game-site interactions~ *(4/13/2022)*
+* postponed *
 
-[ ] Project Deployment *(4/14/2022)*
+- [ ] Project Deployment *(4/14/2022)*
 
 ### Milestones
 
