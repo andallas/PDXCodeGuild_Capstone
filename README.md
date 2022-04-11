@@ -189,6 +189,6 @@ _(- Endpoint requires authorization)_
 
 **Second milestone:** Customizeable user profile
 
-**Third milestone:** The game
+~**Third milestone:** The game~
 
-**Fourth milestone:** Leaderboard and game-site interactions
+~**Fourth milestone:** Leaderboard and game-site interactions~
