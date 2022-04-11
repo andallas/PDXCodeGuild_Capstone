@@ -1,0 +1,16 @@
+{% extends "vue_components.html" %}
+
+{% block vueApp %}
+<script type="module">
+    import { createApp } from 'vue'
+    
+    var profile_app = createApp({
+        data: function() {
+            return { }
+        }
+    });
+    profile_app.config.compilerOptions.delimiters = ['[[', ']]'];
+    {% comment %} profile_app.component('news-post', news_post_component); {% endcomment %}
+    profile_app.mount('#profile_app');
+</script>
+{% endblock %}
