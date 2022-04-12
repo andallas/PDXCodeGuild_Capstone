@@ -46,7 +46,6 @@
                 });
             },
             submit_comment_edit: function(comment_details) {
-                console.log(comment_details.id);
                 axios({
                     method: 'patch',
                     url: `/apis/v1/comment/${comment_details.id}/`,
@@ -75,6 +74,7 @@
                             updated_at: this_comment.updated_at,
                             body: this_comment.body,
                             author_name: this_comment.author_name,
+                            author_url: `/accounts/profile/${this_comment.author_name}`,
                         });
                     }
                 }).catch((error) => {
@@ -95,6 +95,7 @@
                             body: post.body,
                             url: `/post/${post.id}`,
                             author_name: post.author_name,
+                            author_url: `/accounts/profile/${post.author_name}`,
                             votes: post.votes
                         };
                 }).catch((error) => {

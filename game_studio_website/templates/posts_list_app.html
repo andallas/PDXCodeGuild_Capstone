@@ -31,6 +31,7 @@
                             short_body: short_body,
                             url: `/post/${post.id}`,
                             author_name: post.author_name,
+                            author_url: `/accounts/profile/${post.author_name}`,
                             votes: post.votes
                         });
                     }
@@ -45,7 +46,6 @@
                 }
 
                 let post = this.posts[index];
-                console.log(post);
                 axios({
                     method: 'put',
                     url: `/apis/v1/post/${postID}/vote/`,

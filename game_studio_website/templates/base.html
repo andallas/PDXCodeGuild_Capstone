@@ -46,9 +46,6 @@
         }
     </script>
     <script>
-        M.AutoInit();
-    </script>
-    <script>
         function FindIndexByID(itemList, itemID) {
             for (let i = 0; i < itemList.length; i++) {
                 if (itemList[i].id == itemID) {
@@ -69,6 +66,8 @@
             return csrf_token;
         }
         const csrftoken = GetCsrfToken();
+
+        M.AutoInit();
     </script>
     {% block vueComponents %}
     {% endblock %}

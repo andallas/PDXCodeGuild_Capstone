@@ -10,10 +10,10 @@
                                 <div class="card-content">
                                     <span class="card-title"><a :href=post_details.url>[[ post_details.title ]]</a></span>
                                     <template v-if="(post_details.published_at > post_details.updated_at)">
-                                        <p>Posted by <a href="#!">[[ post_details.author_name ]]</a> on [[ post_details.published_at ]]</p>
+                                        <p>Posted by <a :href=post_details.author_url>[[ post_details.author_name ]]</a> on [[ post_details.published_at ]]</p>
                                     </template>
                                     <template v-else>
-                                        <p>Posted by <a href="#!">[[ post_details.author_name ]]</a> on <em>[[ post_details.updated_at ]] (updated)</em></p>
+                                        <p>Posted by <a :href=post_details.author_url>[[ post_details.author_name ]]</a> on <em>[[ post_details.updated_at ]] (updated)</em></p>
                                     </template>
                                 </div>
                                 
@@ -37,10 +37,10 @@
                                 <div class="card-content">
                                     <span class="card-title">[[ post_details.title ]]</span>
                                     <template v-if="(post_details.published_at > post_details.updated_at)">
-                                        <p>Posted by <a href="#!">[[ post_details.author_name ]]</a> on [[ post_details.published_at ]]</p>
+                                        <p>Posted by <a :href=post_details.author_url>[[ post_details.author_name ]]</a> on [[ post_details.published_at ]]</p>
                                     </template>
                                     <template v-else>
-                                        <p>Posted by <a href="#!">[[ post_details.author_name ]]</a> on <em>[[ post_details.updated_at ]] (updated)</em></p>
+                                        <p>Posted by <a :href=post_details.author_url>[[ post_details.author_name ]]</a> on <em>[[ post_details.updated_at ]] (updated)</em></p>
                                     </template>
                                 </div>
                                 
@@ -70,6 +70,7 @@
     };
 
     let edit_comment_form_component = {
+        emits: ['submit_comment_edit'],
         props: ['comment_details'],
         template:  `<div class="row">
                         <div class="input-field col s10">
@@ -92,20 +93,22 @@
                             <div class="card-content">
                                 <p>[[ comment_details.body ]]</p>
                                 <template v-if="(comment_details.created_at >= comment_details.updated_at)">
-                                    <p>Posted by <a href="#!">[[ comment_details.author_name ]]</a> on [[ comment_details.created_at ]]</p>
+                                    <p>Posted by <a :href=comment_details.author_url>[[ comment_details.author_name ]]</a> on [[ comment_details.created_at ]]</p>
                                 </template>
                                 <template v-else>
-                                    <p>Posted by <a href="#!">[[ comment_details.author_name ]]</a> on <em>[[ comment_details.updated_at ]] (updated)</em></p>
+                                    <p>Posted by <a :href=comment_details.author_url>[[ comment_details.author_name ]]</a> on <em>[[ comment_details.updated_at ]] (updated)</em></p>
                                 </template>
                             </div>
-                            <div class="card-action">
-                                <button class="waves-effect waves-light btn modal-trigger" v-bind:data-target="('modal' + comment_details.id)">Edit<i class="material-icons right">send</i></button>
-                            </div>
-                            <div ref="modal" v-bind:id="('modal' + comment_details.id)" class="modal">
-                                <div class="modal-content">
-                                    <edit-comment-form v-bind:comment_details="comment_details" v-on:submit_comment_edit="$emit(\'submit_comment_edit\', comment_details)"></edit-comment-form>
+                            <template v-if="('{{user.username}}' == comment_details.author_name)">
+                                <div class="card-action">
+                                    <button class="waves-effect waves-light btn modal-trigger" v-bind:data-target="('modal' + comment_details.id)">Edit<i class="material-icons right">send</i></button>
                                 </div>
-                            </div>
+                                <div ref="modal" v-bind:id="('modal' + comment_details.id)" class="modal">
+                                    <div class="modal-content">
+                                        <edit-comment-form v-bind:comment_details="comment_details" v-on:submit_comment_edit="$emit(\'submit_comment_edit\', comment_details)"></edit-comment-form>
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     </li>`,
         mounted: function() {
@@ -114,5 +117,46 @@
         }
     }
 
+    let profile_component = {
+        props: ['profile_details'],
+        template: ` <div class="col s12 m4 l3 green accent-3">
+                        <div>
+                            <h1>Profile View for: [[profile_details.user_data.username]]</h1>
+                            <p>Email: [[profile_details.user_data.email]]</p>
+                        </div>
+                    </div>
+
+                    <div class="col s12 m8 l9 grey lighten-3">
+                        <p>[[profile_details.user_info.bio_text]]</p>
+                    </div>
+        `
+    }
+
+    let edit_profile_component = {
+        emits: ['submit_profile_edit'],
+        props: ['profile_details'],
+        template: ` <div>
+                        <button class="waves-effect waves-light btn modal-trigger" v-bind:data-target="('modal' + profile_details.user_info.id)">Edit<i class="material-icons right">send</i></button>
+                    </div>
+                    <div ref="modal" v-bind:id="('modal' + profile_details.user_info.id)" class="modal">
+                        <div class="modal-content">
+                            <div class="row">
+                                <div class="input-field col s10">
+                                    <textarea ref="resizeable" id="textarea1" class="materialize-textarea" v-model="profile_details.user_info.bio_text"></textarea>
+                                    <label for="textarea1">Edit bio...</label>
+                                </div>
+                                <div class="col s2">
+                                    <button class="waves-effect waves-light btn modal-close" v-on:click="$emit(\'submit_profile_edit\', profile_details)">Edit<i class="material-icons right">send</i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        `,
+        mounted: function() {
+            M.textareaAutoResize(this.$refs.resizeable);
+            M.Modal.init(this.$refs.modal);
+            M.updateTextFields();
+        }
+    }
 </script>
 {% endblock %}

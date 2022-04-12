@@ -6,11 +6,57 @@
     
     var profile_app = createApp({
         data: function() {
-            return { }
+            return { 
+                profile: {
+                    user_data: {},
+                    user_info: {}
+                }
+            }
+        },
+        methods: {
+            getProfile: function() {
+                axios({
+                    method: 'get',
+                    url: '/apis/v1/userInfo/username/{{user_profile}}'
+                }).then((response) => {
+                        let userInfo_data = response.data;
+                        this.profile = {
+                            user_data: {
+                                id: {{user_profile.id}},
+                                username: "{{user_profile.username}}",
+                                email: "{{user_profile.email}}"
+                            },
+                            user_info: {
+                                id: userInfo_data.id,
+                                bio_text: userInfo_data.bio_text
+                            }
+                        };
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            submit_profile_edit: function(profile_details) {
+                axios({
+                    method: 'patch',
+                    url: `/apis/v1/userInfo/${profile_details.user_info.id}/`,
+                    headers: {'X-CSRFToken': csrftoken},
+                    mode: 'same-origin',
+                    data: {
+                        id: profile_details.user_info.id,
+                        bio_text: profile_details.user_info.bio_text,
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+        },
+        created: function() {
+            this.getProfile();
         }
     });
     profile_app.config.compilerOptions.delimiters = ['[[', ']]'];
-    {% comment %} profile_app.component('news-post', news_post_component); {% endcomment %}
+    profile_app.component('edit-profile-form', edit_profile_component);
+    profile_app.component('profile', profile_component);
     profile_app.mount('#profile_app');
 </script>
 {% endblock %}

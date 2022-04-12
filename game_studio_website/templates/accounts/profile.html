@@ -1,7 +1,12 @@
 {% extends "profile_app.html" %}
 
 {% block content %}
-    <div id="profile_app">
-        <h1>Profile View for: {{user_profile}}</h1>
+    <div id="profile_app" class="row">
+        {% csrf_token %}
+        
+        <profile v-bind:profile_details="profile"></profile>
+        {% if user.username == user_profile.username %}
+            <edit-profile-form v-bind:profile_details="profile" v-on:submit_profile_edit="submit_profile_edit($event)"></edit-profile-form>
+        {% endif %}
     </div>
 {% endblock %}
