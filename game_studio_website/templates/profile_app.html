@@ -9,17 +9,22 @@
             return { 
                 profile: {
                     user_data: {},
-                    user_info: {}
+                    user_info: {},
+                    game_scores: [],
+                    game_achievements: []
                 }
             }
         },
         methods: {
             getProfile: function() {
-                axios({
-                    method: 'get',
-                    url: '/apis/v1/userInfo/username/{{user_profile}}'
-                }).then((response) => {
-                        let userInfo_data = response.data;
+                let endpoints = [
+                    '/apis/v1/userInfo/username/{{user_profile}}',
+                    '/apis/v1/gameScore/user/{{user_profile.id}}',
+                    '/apis/v1/gameAchievement/user/{{user_profile.id}}',
+                ];
+                Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
+                    ([{data: userInfo}, {data: gameScores}, {data: gameAchievements}] )=> {
+                        console.log({ userInfo, gameScores, gameAchievements });
                         this.profile = {
                             user_data: {
                                 id: {{user_profile.id}},
@@ -27,13 +32,13 @@
                                 email: "{{user_profile.email}}"
                             },
                             user_info: {
-                                id: userInfo_data.id,
-                                bio_text: userInfo_data.bio_text
-                            }
-                        };
-                }).catch((error) => {
-                    console.log(error);
-                });
+                                id: userInfo.id,
+                                bio_text: userInfo.bio_text
+                            },
+                            game_scores: gameScores,
+                            game_achievements: gameAchievements
+                        }
+                    });
             },
             submit_profile_edit: function(profile_details) {
                 axios({

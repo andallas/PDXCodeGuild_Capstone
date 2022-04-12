@@ -70,8 +70,8 @@
     };
 
     let edit_comment_form_component = {
-        emits: ['submit_comment_edit'],
         props: ['comment_details'],
+        emits: ['submit_comment_edit'],
         template:  `<div class="row">
                         <div class="input-field col s10">
                             <textarea ref="resizeable" id="textarea1" class="materialize-textarea" v-model="comment_details.body"></textarea>
@@ -88,6 +88,7 @@
 
     let comment_component = {
         props: ['comment_details'],
+        emits: ['submit_comment_edit'],
         template:  `<li class="collection-item">
                         <div class="card">
                             <div class="card-content">
@@ -119,22 +120,45 @@
 
     let profile_component = {
         props: ['profile_details'],
+        emits: ["submit_profile_edit"],
         template: ` <div class="col s12 m4 l3 green accent-3">
                         <div>
-                            <h1>Profile View for: [[profile_details.user_data.username]]</h1>
+                            <h2>[[profile_details.user_data.username]]'s profile</h2>
                             <p>Email: [[profile_details.user_data.email]]</p>
                         </div>
                     </div>
 
                     <div class="col s12 m8 l9 grey lighten-3">
                         <p>[[profile_details.user_info.bio_text]]</p>
+                        {% if user.username == user_profile.username %}
+                            <edit-profile-form v-bind:profile_details="profile_details" v-on:submit_profile_edit="$emit(\'submit_profile_edit\', profile_details)"></edit-profile-form>
+                        {% endif %}
+                        <ul class="collection with-header">
+                            <li class="collection-header">
+                                <h4>Game Scores</h4>
+                            </li>
+                            <li v-for="game_score in profile_details.game_scores" class="collection-item">
+                                <p>Game: [[game_score.game_title]]</p>
+                                <p>Score: [[game_score.score]]</p>
+                                <p>Date: [[game_score.created_at]]</p>
+                            </li>
+                            <li class="collection-header">
+                                <h4>Game Achievements</h4>
+                            </li>
+                            <li v-for="game_achievement in profile_details.game_achievements" class="collection-item">
+                                <p>Game: [[game_achievement.game_title]]</p>
+                                <h5>[[game_achievement.name]]</h5>
+                                <p>[[game_achievement.description]]</p>
+                                <p>Date: [[game_achievement.created_at]]</p>
+                            </li>
+                        </ul>
                     </div>
         `
     }
 
     let edit_profile_component = {
-        emits: ['submit_profile_edit'],
         props: ['profile_details'],
+        emits: ["submit_profile_edit"],
         template: ` <div>
                         <button class="waves-effect waves-light btn modal-trigger" v-bind:data-target="('modal' + profile_details.user_info.id)">Edit<i class="material-icons right">send</i></button>
                     </div>
@@ -146,7 +170,7 @@
                                     <label for="textarea1">Edit bio...</label>
                                 </div>
                                 <div class="col s2">
-                                    <button class="waves-effect waves-light btn modal-close" v-on:click="$emit(\'submit_profile_edit\', profile_details)">Edit<i class="material-icons right">send</i></button>
+                                    <button class="waves-effect waves-light btn modal-close" v-on:click="$emit(\'submit_profile_edit\')">Edit<i class="material-icons right">send</i></button>
                                 </div>
                             </div>
                         </div>

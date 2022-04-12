@@ -1,7 +1,7 @@
 {% extends "post_detail_app.html" %}
 
 {% block content %}
-    <div id="post_detail_app">
+    <div id="post_detail_app" class="container">
         {% csrf_token %}
 
         <news-post v-bind:post_details="news_post" v-on:vote="vote($event)"></news-post>

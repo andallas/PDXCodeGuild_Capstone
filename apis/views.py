@@ -7,7 +7,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from posts import models as postModels
 from accounts import models as accountModels
-from .serializers import CustomUserSerializer, PostSerializer, CommentSerializer, UserInfoSerializer
+from games import models as gameModels
+from .serializers import CustomUserSerializer, PostSerializer, CommentSerializer, UserInfoSerializer, GameInfoSerializer, GameScoreSerializer, GameAchievementSerializer
 from datetime import datetime
 
 
@@ -55,3 +56,26 @@ class UserInfoViewSet(viewsets.ModelViewSet):
         userInfo_data = UserInfoSerializer(userInfo).data
         return Response(userInfo_data, status=status.HTTP_200_OK)
 
+class GameInfoViewSet(viewsets.ModelViewSet):
+    queryset = gameModels.GameInfo.objects.all()
+    serializer_class = GameInfoSerializer
+
+class GameScoreViewSet(viewsets.ModelViewSet):
+    queryset = gameModels.GameScore.objects.all()
+    serializer_class = GameScoreSerializer
+
+    @action(methods=['get'], detail=False, url_path='user/(?P<user_id>\w+)')
+    def getByUser(self, request, user_id):
+        filtered_results = gameModels.GameScore.objects.filter(user=user_id)
+        serialized_results = GameScoreSerializer(filtered_results, many=True)
+        return Response(serialized_results.data, status=status.HTTP_200_OK)
+
+class GameAchievementViewSet(viewsets.ModelViewSet):
+    queryset = gameModels.GameAchievement.objects.all()
+    serializer_class = GameAchievementSerializer
+
+    @action(methods=['get'], detail=False, url_path='user/(?P<user_id>\w+)')
+    def getByUser(self, request, user_id):
+        filtered_results = gameModels.GameAchievement.objects.filter(user=user_id)
+        serialized_results = GameAchievementSerializer(filtered_results, many=True)
+        return Response(serialized_results.data, status=status.HTTP_200_OK)
