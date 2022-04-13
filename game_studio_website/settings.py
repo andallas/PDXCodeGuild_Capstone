@@ -125,12 +125,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = 'staticfiles'
+
+STATICFILES_DIRS = [PROJECT_DIR / STATIC_URL]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [PROJECT_DIR / STATIC_URL]
 
 LOGIN_REDIRECT_URL = "posts:home"
 LOGOUT_REDIRECT_URL = "posts:home"
