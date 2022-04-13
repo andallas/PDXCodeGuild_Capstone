@@ -175,13 +175,13 @@ _(- Endpoint requires authorization)_
 
 - [x] Sprint 1: User system and studio news *(4/10/2022)*
 
-- [ ] **Sprint 2: Customizeable user profile** *(4/13/2022)*
+- [x] Sprint 2: Customizeable user profile *(4/12/2022)*
 
 ~Sprint 3: The game~ *postponed*
 
 ~Sprint 4: Leaderboard and game-site interactions~ *postponed*
 
-- [ ] Project Deployment *(4/14/2022)*
+- [ ] **Project Deployment** *(4/14/2022)*
 
 ### Milestones
 

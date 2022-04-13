@@ -24,7 +24,6 @@
                 ];
                 Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
                     ([{data: userInfo}, {data: gameScores}, {data: gameAchievements}] )=> {
-                        console.log({ userInfo, gameScores, gameAchievements });
                         this.profile = {
                             user_data: {
                                 id: {{user_profile.id}},

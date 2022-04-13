@@ -3,18 +3,28 @@
 {% block title %}Log In{% endblock %}
 
 {% block content %}
-    <h2>Log In</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="input-field">
-            <label for="{{ form.username.id_username}}">Username:</label>
-            {{ form.username }}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h2 class="center-align">Log In</h2>
         </div>
-        <div class="input-field">
-            <label for="{{ form.password.id_password}}">Password:</label>
-            {{ form.password }}
-        </div>
-        
-        <button class="btn waves-effect waves-light" type="submit">Log In</button>
-    </form>
+    </div>
+    <div class="row">
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-field col s8 offset-s2">
+                <label for="{{ form.username.id_username}}">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="input-field col s8 offset-s2">
+                <label for="{{ form.password.id_password}}">Password:</label>
+                {{ form.password }}
+            </div>
+            
+            <div class="row">
+                <button class="col s6 offset-s3 btn waves-effect waves-light orange darken-2" type="submit">Log In</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

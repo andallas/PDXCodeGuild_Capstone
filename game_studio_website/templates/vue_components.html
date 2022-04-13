@@ -22,7 +22,7 @@
                                 </div>
                                 
                                 <div class="card-action">
-                                    <button class="waves-effect waves-light btn-small grey lighten-2 black-text {% if not user.is_authenticated %}disabled{% endif %}" v-on:click="$emit(\'vote\', post_details.id)"><i class="tiny material-icons amber-text text-darken-3 left">hotel_class</i>[[ post_details.votes ]]</button>
+                                    <button class="waves-effect waves-light btn-small orange darken-2 {% if not user.is_authenticated %}disabled{% endif %}" v-on:click="$emit(\'vote\', post_details.id)"><i class="tiny material-icons amber-text text-lighten-2 left">hotel_class</i>[[ post_details.votes ]]</button>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                 </div>
                                 
                                 <div class="card-action">
-                                    <button class="waves-effect waves-light btn-small grey lighten-2 black-text {% if not user.is_authenticated %}disabled{% endif %}" v-on:click="$emit(\'vote\')"><i class="tiny material-icons amber-text text-darken-3 left">hotel_class</i>[[ post_details.votes ]]</button>
+                                    <button class="waves-effect waves-light btn-small orange darken-2 {% if not user.is_authenticated %}disabled{% endif %}" v-on:click="$emit(\'vote\')"><i class="tiny material-icons amber-text text-lighten-2 left">hotel_class</i>[[ post_details.votes ]]</button>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             <label for="textarea1">Enter comment...</label>
                         </div>
                         <div class="col s2">
-                            <button class="waves-effect waves-light btn" v-on:click="$emit(\'submit_comment\')">Comment<i class="material-icons right">send</i></button>
+                            <button class="waves-effect waves-light btn orange darken-2" v-on:click="$emit(\'submit_comment\')">Comment<i class="material-icons right">send</i></button>
                         </div>
                     </div>`
     };
@@ -78,7 +78,7 @@
                             <label for="textarea1">Edit comment...</label>
                         </div>
                         <div class="col s2">
-                            <button class="waves-effect waves-light btn modal-close" v-on:click="$emit(\'submit_comment_edit\')">Edit<i class="material-icons right">send</i></button>
+                            <button class="waves-effect waves-light btn modal-close orange darken-2" v-on:click="$emit(\'submit_comment_edit\')">Edit<i class="material-icons right">send</i></button>
                         </div>
                     </div>`,
         mounted: function() {
@@ -102,7 +102,7 @@
                             </div>
                             <template v-if="('{{user.username}}' == comment_details.author_name)">
                                 <div class="card-action">
-                                    <button class="waves-effect waves-light btn modal-trigger" v-bind:data-target="('modal' + comment_details.id)">Edit<i class="material-icons right">send</i></button>
+                                    <button class="waves-effect waves-light btn modal-trigger orange darken-2" v-bind:data-target="('modal' + comment_details.id)">Edit<i class="material-icons right">send</i></button>
                                 </div>
                                 <div ref="modal" v-bind:id="('modal' + comment_details.id)" class="modal">
                                     <div class="modal-content">
@@ -121,34 +121,45 @@
     let profile_component = {
         props: ['profile_details'],
         emits: ["submit_profile_edit"],
-        template: ` <div class="col s12 m4 l3 green accent-3">
-                        <div>
+        template: ` <div class="col col-full-height s12 m4 l3 blue-grey lighten-3">
+                        <div class="white-text">
                             <h2>[[profile_details.user_data.username]]'s profile</h2>
-                            <p>Email: [[profile_details.user_data.email]]</p>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m8 l9 grey lighten-3">
-                        <p>[[profile_details.user_info.bio_text]]</p>
+                            <p><strong>Email: [[profile_details.user_data.email]]</strong></p>
+                            <p>[[profile_details.user_info.bio_text]]</p>
                         {% if user.username == user_profile.username %}
                             <edit-profile-form v-bind:profile_details="profile_details" v-on:submit_profile_edit="$emit(\'submit_profile_edit\', profile_details)"></edit-profile-form>
                         {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col col-full-height s12 m8 l9 blue-grey lighten-5">
                         <ul class="collection with-header">
-                            <li class="collection-header">
+                            <li class="collection-header light-blue accent-2 white-text">
                                 <h4>Game Scores</h4>
                             </li>
+
                             <li v-for="game_score in profile_details.game_scores" class="collection-item">
-                                <p>Game: [[game_score.game_title]]</p>
-                                <p>Score: [[game_score.score]]</p>
+                                <h4 class="center center-align">[[game_score.game_title]]</h4>
+                                <div class="card light-blue accent-2">
+                                    <div class="card-content white-text">
+                                        <span class="card-title">Score: [[game_score.score]]</span>
+                                    </div>
+                                </div>
                                 <p>Date: [[game_score.created_at]]</p>
                             </li>
-                            <li class="collection-header">
+
+                            <li class="collection-header orange accent-2 white-text">
                                 <h4>Game Achievements</h4>
                             </li>
+
                             <li v-for="game_achievement in profile_details.game_achievements" class="collection-item">
-                                <p>Game: [[game_achievement.game_title]]</p>
-                                <h5>[[game_achievement.name]]</h5>
-                                <p>[[game_achievement.description]]</p>
+                                <h4 class="center center-align">[[game_achievement.game_title]]</h4>
+                                <div class="card orange accent-2">
+                                    <div class="card-content white-text">
+                                        <span class="card-title">[[game_achievement.name]]</span>
+                                        <p>[[game_achievement.description]]</p>
+                                    </div>
+                                </div>
                                 <p>Date: [[game_achievement.created_at]]</p>
                             </li>
                         </ul>
@@ -160,7 +171,7 @@
         props: ['profile_details'],
         emits: ["submit_profile_edit"],
         template: ` <div>
-                        <button class="waves-effect waves-light btn modal-trigger" v-bind:data-target="('modal' + profile_details.user_info.id)">Edit<i class="material-icons right">send</i></button>
+                        <button class="waves-effect waves-light btn modal-trigger orange darken-2" v-bind:data-target="('modal' + profile_details.user_info.id)">Edit<i class="material-icons right">send</i></button>
                     </div>
                     <div ref="modal" v-bind:id="('modal' + profile_details.user_info.id)" class="modal">
                         <div class="modal-content">
@@ -170,7 +181,7 @@
                                     <label for="textarea1">Edit bio...</label>
                                 </div>
                                 <div class="col s2">
-                                    <button class="waves-effect waves-light btn modal-close" v-on:click="$emit(\'submit_profile_edit\')">Edit<i class="material-icons right">send</i></button>
+                                    <button class="waves-effect waves-light btn modal-close orange darken-2" v-on:click="$emit(\'submit_profile_edit\')">Edit<i class="material-icons right">send</i></button>
                                 </div>
                             </div>
                         </div>
