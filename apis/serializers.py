@@ -63,17 +63,20 @@ class GameInfoSerializer(serializers.ModelSerializer):
         model = gameModels.GameInfo
 
 class GameScoreSerializer(serializers.ModelSerializer):
+    game_title = serializers.StringRelatedField(source="game.name")
     class Meta:
         fields = (
             'id',
             'created_at',
             'score',
             'game',
+            'game_title',
             'user',
         )
         model = gameModels.GameScore
 
 class GameAchievementSerializer(serializers.ModelSerializer):
+    game_title = serializers.StringRelatedField(source="game.name")
     class Meta:
         fields = (
             'id',
@@ -81,6 +84,7 @@ class GameAchievementSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'game',
+            'game_title',
             'user',
         )
         model = gameModels.GameAchievement

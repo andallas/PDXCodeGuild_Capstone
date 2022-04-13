@@ -5,13 +5,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% load static %}
     <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}"  media="screen,projection"/>
     
     <title>{% block title %}Game Studio Website{% endblock %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
 </head>
-<body>
-    <div class="navbar-fixed">
-        <nav>
+<body class="blue-grey lighten-5">
+    <div class="navbar-fixed navbar-fixed-full-height">
+        <nav class="green accent-3">
             <div class="nav-wrapper">
                 <a href="/" class="brand-logo center">Game Studio Logo</a>
                 <ul class="left hide-on-med-and-down">
@@ -20,20 +21,19 @@
                 <ul class="right">
                 {% if user.is_authenticated %}
                     <li>Hi {{ user.username }}!</li>
-                    <li><a href="{% url 'logout' %}" class="waves-effect waves-light btn-small">Log Out</a></li>
+                    <li><a href="{% url 'logout' %}" class="waves-effect waves-light btn-small orange darken-2">Log Out</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Log In</a></li>
-                    <li><a href="{% url 'signup' %}" class="waves-effect waves-light btn">Sign Up</a></li>
+                    <li><a href="{% url 'signup' %}" class="waves-effect waves-light btn orange darken-2">Sign Up</a></li>
                 {% endif %}
                 </div>
             </div>
         </nav>
     </div>
 
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+    
+    {% block content %}
+    {% endblock %}
 
     {% load static %}
     <script src="{% static 'js/materialize.min.js' %}"></script>
@@ -44,9 +44,6 @@
                 "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
             }
         }
-    </script>
-    <script>
-        M.AutoInit();
     </script>
     <script>
         function FindIndexByID(itemList, itemID) {
@@ -60,7 +57,17 @@
             return -1;
         }
 
-        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        function GetCsrfToken() {
+            let csrf_element = document.querySelector('[name=csrfmiddlewaretoken]');
+            let csrf_token = 'TokenNotFound';
+            if (csrf_element != null) {
+                csrf_token = csrf_element.value;
+            }
+            return csrf_token;
+        }
+        const csrftoken = GetCsrfToken();
+
+        M.AutoInit();
     </script>
     {% block vueComponents %}
     {% endblock %}
