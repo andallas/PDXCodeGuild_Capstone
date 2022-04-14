@@ -1,8 +1,0 @@
-{% extends "posts_list_app.html" %}
-
-{% block content %}
-    <div id="posts_list_app" class="container">
-        {% csrf_token %}
-        <post-card v-for="post in posts" v-bind:post_details="post" v-bind:key="post.id" v-on:vote="vote($event)"></post-card>
-    </div>
-{% endblock %}
