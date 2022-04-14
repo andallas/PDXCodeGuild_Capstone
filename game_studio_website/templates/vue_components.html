@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block vueComponents %}
+<script>
+    let post_card_component = {
+        props: ['post_details'],
+        template:  `<div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <span class="card-title"><a :href=post_details.url>[[ post_details.title ]]</a></span>
+                                    <template v-if="(post_details.published_at > post_details.updated_at)">
+                                        <p>Posted by <a :href=post_details.author_url>[[ post_details.author_name ]]</a> on [[ post_details.published_at ]]</p>
+                                    </template>
+                                    <template v-else>
+                                        <p>Posted by <a :href=post_details.author_url>[[ post_details.author_name ]]</a> on <em>[[ post_details.updated_at ]] (updated)</em></p>
+                                    </template>
+                                </div>
+                                
+                                <div class="card-content">
+                                    <p>[[ post_details.short_body ]]</p>
+                                </div>
+                                
+                                <div class="card-action">
+                                    <button class="waves-effect waves-light btn-small orange darken-2 {% if not user.is_authenticated %}disabled{% endif %}" v-on:click="$emit(\'vote\', post_details.id)"><i class="tiny material-icons amber-text text-lighten-2 left">hotel_class</i>[[ post_details.votes ]]</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+    };
+
+    let news_post_component = {
+        props: ['post_details'],
+        template:  `<div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <span class="card-title">[[ post_details.title ]]</span>
+                                    <template v-if="(post_details.published_at > post_details.updated_at)">
+                                        <p>Posted by <a :href=post_details.author_url>[[ post_details.author_name ]]</a> on [[ post_details.published_at ]]</p>
+                                    </template>
+                                    <template v-else>
+                                        <p>Posted by <a :href=post_details.author_url>[[ post_details.author_name ]]</a> on <em>[[ post_details.updated_at ]] (updated)</em></p>
+                                    </template>
+                                </div>
+                                
+                                <div class="card-content">
+                                    <p>[[ post_details.body ]]</p>
+                                </div>
+                                
+                                <div class="card-action">
+                                    <button class="waves-effect waves-light btn-small orange darken-2 {% if not user.is_authenticated %}disabled{% endif %}" v-on:click="$emit(\'vote\')"><i class="tiny material-icons amber-text text-lighten-2 left">hotel_class</i>[[ post_details.votes ]]</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+    };
+
+    let new_comment_form_component = {
+        props: ['comment_details'],
+        template:  `<div class="row">
+                        <div class="input-field col s10">
+                            <textarea id="textarea1" class="materialize-textarea" v-model="comment_details.body"></textarea>
+                            <label for="textarea1">Enter comment...</label>
+                        </div>
+                        <div class="col s2">
+                            <button class="waves-effect waves-light btn orange darken-2" v-on:click="$emit(\'submit_comment\')">Comment<i class="material-icons right">send</i></button>
+                        </div>
+                    </div>`
+    };
+
+    let edit_comment_form_component = {
+        props: ['comment_details'],
+        emits: ['submit_comment_edit'],
+        template:  `<div class="row">
+                        <div class="input-field col s10">
+                            <textarea ref="resizeable" id="textarea1" class="materialize-textarea" v-model="comment_details.body"></textarea>
+                            <label for="textarea1">Edit comment...</label>
+                        </div>
+                        <div class="col s2">
+                            <button class="waves-effect waves-light btn modal-close orange darken-2" v-on:click="$emit(\'submit_comment_edit\')">Edit<i class="material-icons right">send</i></button>
+                        </div>
+                    </div>`,
+        mounted: function() {
+            M.textareaAutoResize(this.$refs.resizeable);
+        }
+    };
+
+    let comment_component = {
+        props: ['comment_details'],
+        emits: ['submit_comment_edit'],
+        template:  `<li class="collection-item">
+                        <div class="card">
+                            <div class="card-content">
+                                <p>[[ comment_details.body ]]</p>
+                                <template v-if="(comment_details.created_at >= comment_details.updated_at)">
+                                    <p>Posted by <a :href=comment_details.author_url>[[ comment_details.author_name ]]</a> on [[ comment_details.created_at ]]</p>
+                                </template>
+                                <template v-else>
+                                    <p>Posted by <a :href=comment_details.author_url>[[ comment_details.author_name ]]</a> on <em>[[ comment_details.updated_at ]] (updated)</em></p>
+                                </template>
+                            </div>
+                            <template v-if="('{{user.username}}' == comment_details.author_name)">
+                                <div class="card-action">
+                                    <button class="waves-effect waves-light btn modal-trigger orange darken-2" v-bind:data-target="('modal' + comment_details.id)">Edit<i class="material-icons right">send</i></button>
+                                </div>
+                                <div ref="modal" v-bind:id="('modal' + comment_details.id)" class="modal">
+                                    <div class="modal-content">
+                                        <edit-comment-form v-bind:comment_details="comment_details" v-on:submit_comment_edit="$emit(\'submit_comment_edit\', comment_details)"></edit-comment-form>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </li>`,
+        mounted: function() {
+            M.Modal.init(this.$refs.modal);
+            M.updateTextFields();
+        }
+    }
+
+    let profile_component = {
+        props: ['profile_details'],
+        emits: ["submit_profile_edit"],
+        template: ` <div class="col col-full-height s12 m4 l3 blue-grey lighten-3">
+                        <div class="white-text">
+                            <h2>[[profile_details.user_data.username]]'s profile</h2>
+                            <p><strong>Email: [[profile_details.user_data.email]]</strong></p>
+                            <p>[[profile_details.user_info.bio_text]]</p>
+                        {% if user.username == user_profile.username %}
+                            <edit-profile-form v-bind:profile_details="profile_details" v-on:submit_profile_edit="$emit(\'submit_profile_edit\', profile_details)"></edit-profile-form>
+                        {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col col-full-height s12 m8 l9 blue-grey lighten-5">
+                        <ul class="collection with-header">
+                            <li class="collection-header light-blue accent-2 white-text">
+                                <h4>Game Scores</h4>
+                            </li>
+
+                            <li v-for="game_score in profile_details.game_scores" class="collection-item">
+                                <h4 class="center center-align">[[game_score.game_title]]</h4>
+                                <div class="card light-blue accent-2">
+                                    <div class="card-content white-text">
+                                        <span class="card-title">Score: [[game_score.score]]</span>
+                                    </div>
+                                </div>
+                                <p>Date: [[game_score.created_at]]</p>
+                            </li>
+
+                            <li class="collection-header orange accent-2 white-text">
+                                <h4>Game Achievements</h4>
+                            </li>
+
+                            <li v-for="game_achievement in profile_details.game_achievements" class="collection-item">
+                                <h4 class="center center-align">[[game_achievement.game_title]]</h4>
+                                <div class="card orange accent-2">
+                                    <div class="card-content white-text">
+                                        <span class="card-title">[[game_achievement.name]]</span>
+                                        <p>[[game_achievement.description]]</p>
+                                    </div>
+                                </div>
+                                <p>Date: [[game_achievement.created_at]]</p>
+                            </li>
+                        </ul>
+                    </div>
+        `
+    }
+
+    let edit_profile_component = {
+        props: ['profile_details'],
+        emits: ["submit_profile_edit"],
+        template: ` <div>
+                        <button class="waves-effect waves-light btn modal-trigger orange darken-2" v-bind:data-target="('modal' + profile_details.user_info.id)">Edit<i class="material-icons right">send</i></button>
+                    </div>
+                    <div ref="modal" v-bind:id="('modal' + profile_details.user_info.id)" class="modal">
+                        <div class="modal-content">
+                            <div class="row">
+                                <div class="input-field col s10">
+                                    <textarea ref="resizeable" id="textarea1" class="materialize-textarea" v-model="profile_details.user_info.bio_text"></textarea>
+                                    <label for="textarea1">Edit bio...</label>
+                                </div>
+                                <div class="col s2">
+                                    <button class="waves-effect waves-light btn modal-close orange darken-2" v-on:click="$emit(\'submit_profile_edit\')">Edit<i class="material-icons right">send</i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        `,
+        mounted: function() {
+            M.textareaAutoResize(this.$refs.resizeable);
+            M.Modal.init(this.$refs.modal);
+            M.updateTextFields();
+        }
+    }
+</script>
+{% endblock %}

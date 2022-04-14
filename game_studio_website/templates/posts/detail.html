@@ -1,0 +1,17 @@
+{% extends "post_detail_app.html" %}
+
+{% block content %}
+    <div id="post_detail_app" class="container">
+        {% csrf_token %}
+
+        <news-post v-bind:post_details="news_post" v-on:vote="vote($event)"></news-post>
+            
+        {% if user.is_authenticated %}
+        <comment-form v-bind:comment_details="new_comment" v-on:submit_comment="submit_comment($event)"></comment-form>
+
+        <ul class="collection">
+            <comment v-for="comment in sorted_comments" v-bind:comment_details="comment" v-bind:key="comment.id" v-on:submit_comment_edit="submit_comment_edit($event)"></comment>
+        </ul>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "vue_components.html" %}
+
+{% block vueApp %}
+<script type="module">
+    import { createApp } from 'vue'
+    
+    var posts_list_app = createApp({
+        data: function() {
+            return {
+                posts: [],
+            }
+        },
+        methods: {
+            getPublishedPosts: function() {
+                axios({
+                    method: 'get',
+                    url: '/apis/v1/post'
+                }).then((response) => {
+                    for (let post_index in response.data) {
+                        let post = response.data[post_index];
+                        var short_body = post.body;
+                        if (short_body.length > 128) {
+                            short_body = short_body.slice(0, 128) + '...';
+                        }
+
+                        this.posts.push({
+                            id: post.id,
+                            updated_at: post.updated_at,
+                            published_at: post.published_at,
+                            title: post.title,
+                            short_body: short_body,
+                            url: `/post/${post.id}`,
+                            author_name: post.author_name,
+                            author_url: `/accounts/profile/${post.author_name}`,
+                            votes: post.votes
+                        });
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            vote: function(postID) {
+                let index = FindIndexByID(this.posts, postID);
+                if (index == -1) {
+                    return;
+                }
+
+                let post = this.posts[index];
+                axios({
+                    method: 'put',
+                    url: `/apis/v1/post/${postID}/vote/`,
+                    headers: {'X-CSRFToken': csrftoken},
+                    mode: 'same-origin',
+                    data: {
+                        id: post.id
+                    }
+                }).then((response) => {
+                    this.posts[index].votes = response.data.voteCount;
+                });
+            }
+        },
+        created: function() {
+            this.getPublishedPosts();
+        }
+    });
+    posts_list_app.config.compilerOptions.delimiters = ['[[', ']]'];
+    posts_list_app.component('post-card', post_card_component);
+    posts_list_app.mount('#posts_list_app');
+</script>
+{% endblock %}
